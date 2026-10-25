@@ -1,0 +1,93 @@
+(function () {
+  const D = {
+    tr: {
+      daily: 'Günlük', supply: 'Hediye', noads: 'Reklamsız', play: 'OYNA', level: 'Seviye', shop: 'Mağaza', missions: 'Görevler', home: 'Ana', spin: 'Çark', rank: 'Sıralama',
+      p_reorder: 'Sırala', p_bay: 'Park', p_vip: 'VIP', p_hint: 'İpucu',
+      online: 'çevrimiçi', playing_now: 'oynuyor', offline_msg: 'Sunucuya bağlanılamadı. Tekrar deneniyor…', connecting: 'Bağlanıyor…', loading: 'Şehir ışıkları açılıyor…',
+      city_lit: 'Şehir ışıkları', district: 'Bölge', next_district: 'Sonraki bölge', levels_left: 'seviye kaldı',
+      pause: 'Duraklatıldı', resume: 'Devam', restart: 'Yeniden başla', quit: 'Çık', win: 'Harika!', lose: 'Park yeri doldu!', lose_sub: 'Yolcular sabırsızlanıyor…',
+      next: 'Sonraki seviye', retry: 'Tekrar dene', x2: 'Videoyu izle: x2', revive: 'Videoyla devam et', revive_sub: '+1 park yeri ve yolcular yeniden sıralanır', buy_bay: '+1 park yeri', claim: 'Al', claimed: 'Alındı',
+      earned: 'Kazandın', stars: 'Yıldız', close: 'Kapat', ok: 'Tamam', cancel: 'Vazgeç', buy: 'Satın al', free: 'ÜCRETSİZ', watch: 'İzle',
+      ad_label: 'REKLAM', ad_reward_in: 'Ödül için izlemeye devam et', ad_close: 'Kapat', ad_demo: 'Demo reklam – gerçek yayında AdMob/AppLovin burada gösterilir.', ad_failed: 'Reklam şu an hazır değil, birazdan tekrar dene.', ad_cap: 'Bugünlük video limitine ulaştın.',
+      ad_cooldown: 'Hediye henüz hazır değil.', ad_skip: 'Geç',
+      daily_title: 'Günlük Ödül', daily_day: 'Gün', daily_claim: 'Bugünkü ödülü al', daily_x2: 'Videoyla ikiye katla', daily_done: 'Yarın tekrar gel!',
+      supply_title: 'Ücretsiz Hediye', supply_free: 'Ücretsiz al', supply_ad: 'Video ile x3', supply_wait: 'Sonraki hediye',
+      spin_title: 'Şans Çarkı', spin_free: 'Ücretsiz çevir', spin_ad: 'Video izle & çevir', spin_extra: 'Çevir', spin_next: 'Sonraki ücretsiz çark', spin_won: 'Kazandın!',
+      missions_title: 'Günlük Görevler', mission_chest: 'Sandığı Aç', mission_chest_note: 'Tüm görevleri tamamla, büyük sandığı aç!', mission_resets: 'Her gün yenilenir',
+      m_deliver: '{n} yolcuyu taşı', m_wins: '{n} seviye kazan', m_stars3: '{n} seviyeyi 3 yıldızla bitir', m_deliverColor: '{n} {c} yolcu taşı', m_noprops: '{n} seviyeyi güçlendirici kullanmadan bitir',
+      shop_title: 'Mağaza', tab_offers: 'Paketler', tab_coins: 'Jeton', tab_plus: 'Nova+', tab_props: 'Güçlendirici',
+      owned: 'Sahipsin', locked_lv: 'Seviye {n}\'de açılır', plus_active: 'Nova+ aktif', days_left: 'gün kaldı', vip_claim: 'Günlük Nova+ ödülü',
+      pay_demo_title: 'Demo ödeme', pay_demo_note: 'Bu bir demo. Yayında Google Play Faturalandırma / StoreKit ile değişir ve sunucuda doğrulanır.', pay_confirm: 'Demo satın alımı onayla',
+      rank_title: 'Sıralama', your_rank: 'Sen', settings: 'Ayarlar', sound: 'Ses efektleri', haptics: 'Titreşim', colorblind: 'Renk körü modu', language: 'Dil', name: 'Takma ad', save: 'Kaydet', privacy: 'Veriler sunucuda anonim cihaz kimliğiyle saklanır.',
+      toast_blocked: 'Yolu kapalı!', toast_full: 'Park yerleri dolu!', toast_locked: 'Kilitli – diğer mekikler kalkınca açılır', toast_busy: 'Bir saniye…',
+      toast_nocoins: 'Yeterli jetonun yok', toast_bought: 'Satın alındı!', toast_got: 'Aldın', toast_hint: 'İpucu hazır', toast_nohint: 'İpucu bulunamadı', toast_no_bay: 'Boş park yeri yok', toast_err: 'Bir şeyler ters gitti',
+      prop_reorder: 'Yolcu Sırala', prop_reorder_d: 'Sıradaki yolcuları bekleyen mekiklere göre dizer.', prop_bay: 'Ekstra Park Yeri', prop_bay_d: 'Bu bölüme +1 park yeri ekler.', prop_vip: 'VIP Mekik', prop_vip_d: 'Her renkten 4 yolcu alan altın mekik.', prop_hint: 'İpucu', prop_hint_d: 'En iyi hamleyi gösterir.',
+      get_prop: 'Güçlendirici al', get_prop_ad: 'Videoyla 1 adet kazan', get_prop_coin: 'Jetonla al',
+      c_coral: 'Mercan', c_amber: 'Kehribar', c_lime: 'Misket', c_aqua: 'Turkuaz', c_azure: 'Gök', c_violet: 'Mor', c_rose: 'Gül',
+      tut1: 'Bir mekiğe dokun: ok yönünde yola çıkar ve park yerine geçer.', tut2: 'Aynı renkteki yolcular otomatik biner. Mekik dolunca yola çıkar.', tut3: 'Yolu kapalı mekikler önce diğerlerinin gitmesini bekler.', tut4: 'Park yerleri dolmasın! Sıradaki renklere göre sırala.',
+      tut_mystery: '? işaretli mekik, yolu açılınca rengini gösterir.', tut_lock: 'Kilitli mekik: sayı kadar mekik kalkınca açılır.', tut_reorder: 'Sırala güçlendiricisi yolcuları ihtiyaca göre dizer.',
+      boss: 'ZOR BÖLÜM', breather: 'Rahat bölüm',
+      story_next: 'Devam', story_skip: 'Geç', mira: 'Mira', pip: 'Pip', restored: 'bölgesi aydınlandı!', new_district: 'Yeni bölge',
+      s_intro1: 'Hoş geldin, Gece Dispeçeri! Nova City\'nin enerji şebekesi çöktü. Şehir karanlıkta, herkes eve dönmeye çalışıyor.',
+      s_intro2: 'Ben Pip! Yolcuları doğru renkteki gök mekiklerine bindir; her mekik kalkınca şehrin bir parçasında ışıklar yanacak.',
+      s_oldtown: 'Liman aydınlandı! Sırada Eski Şehir: dar sokaklar, kapalı yollar… Mekiklerin sırasına dikkat et.',
+      s_neon: 'Neon Çarşı\'ya hoş geldin. Burada bazı mekiklerin rengi gizli — yolları açılınca ortaya çıkacak!',
+      s_gardens: 'Kristal Bahçeler… Kilitli mekikler var. Diğerleri kalkınca kilitler açılır, sabırlı ol.',
+      s_orbit: 'Yörünge İstasyonu! Yolcular artık çok karışık gelecek. Güçlendiricilerini akıllıca kullan.',
+      s_aurora: 'Aurora Çekirdeği: şehrin kalbi. Buradan sonrası sonsuz — her yolcu evine ulaşana dek devam!',
+      s_win_d: 'Harika iş! {d} tamamen aydınlandı.',
+      tip1: 'Yolu açık mekikler hafifçe parlar.', tip2: 'Park yerlerini boş tut!', tip3: 'Videoyla bedava güçlendirici kazanabilirsin.', tip4: 'Her gün çarkı çevirmeyi unutma!', tip5: 'Renk körü modu ayarlarda.',
+      offer_starter: 'Başlangıç', offer_pro: 'Pro', offer_plus: 'Nova+', not_logged: 'Giriş yapılamadı',
+    },
+    en: {
+      daily: 'Daily', supply: 'Gift', noads: 'No Ads', play: 'PLAY', level: 'Level', shop: 'Shop', missions: 'Missions', home: 'Home', spin: 'Spin', rank: 'Ranks',
+      p_reorder: 'Reorder', p_bay: 'Bay', p_vip: 'VIP', p_hint: 'Hint',
+      online: 'online', playing_now: 'playing', offline_msg: 'Cannot reach the server. Retrying…', connecting: 'Connecting…', loading: 'Switching the city lights on…',
+      city_lit: 'City lights', district: 'District', next_district: 'Next district', levels_left: 'levels left',
+      pause: 'Paused', resume: 'Resume', restart: 'Restart', quit: 'Quit', win: 'Great!', lose: 'The bays are full!', lose_sub: 'Passengers are getting restless…',
+      next: 'Next level', retry: 'Try again', x2: 'Watch video: x2', revive: 'Continue with video', revive_sub: '+1 bay and passengers get re-sorted', buy_bay: '+1 bay', claim: 'Claim', claimed: 'Claimed',
+      earned: 'You earned', stars: 'Stars', close: 'Close', ok: 'OK', cancel: 'Cancel', buy: 'Buy', free: 'FREE', watch: 'Watch',
+      ad_label: 'AD', ad_reward_in: 'Keep watching for your reward', ad_close: 'Close', ad_demo: 'Demo ad – a real AdMob/AppLovin ad shows here in production.', ad_failed: 'No ad available right now, try again soon.', ad_cap: 'You reached today\'s video limit.',
+      ad_cooldown: 'Gift is not ready yet.', ad_skip: 'Skip',
+      daily_title: 'Daily Reward', daily_day: 'Day', daily_claim: 'Claim today\'s reward', daily_x2: 'Double it with a video', daily_done: 'Come back tomorrow!',
+      supply_title: 'Free Gift', supply_free: 'Claim free', supply_ad: 'x3 with video', supply_wait: 'Next gift in',
+      spin_title: 'Lucky Wheel', spin_free: 'Free spin', spin_ad: 'Watch & spin', spin_extra: 'Spin', spin_next: 'Next free spin in', spin_won: 'You won!',
+      missions_title: 'Daily Missions', mission_chest: 'Open chest', mission_chest_note: 'Finish all missions to open the big chest!', mission_resets: 'Resets every day',
+      m_deliver: 'Deliver {n} passengers', m_wins: 'Win {n} levels', m_stars3: 'Finish {n} levels with 3 stars', m_deliverColor: 'Deliver {n} {c} passengers', m_noprops: 'Finish {n} levels without power-ups',
+      shop_title: 'Shop', tab_offers: 'Bundles', tab_coins: 'Coins', tab_plus: 'Nova+', tab_props: 'Power-ups',
+      owned: 'Owned', locked_lv: 'Unlocks at level {n}', plus_active: 'Nova+ active', days_left: 'days left', vip_claim: 'Daily Nova+ reward',
+      pay_demo_title: 'Demo payment', pay_demo_note: 'This is a demo. In production it is replaced by Google Play Billing / StoreKit and verified on the server.', pay_confirm: 'Confirm demo purchase',
+      rank_title: 'Leaderboard', your_rank: 'You', settings: 'Settings', sound: 'Sound effects', haptics: 'Haptics', colorblind: 'Colour-blind mode', language: 'Language', name: 'Nickname', save: 'Save', privacy: 'Data is stored on the server under an anonymous device ID.',
+      toast_blocked: 'Path is blocked!', toast_full: 'All bays are full!', toast_locked: 'Locked – opens after other shuttles leave', toast_busy: 'One moment…',
+      toast_nocoins: 'Not enough coins', toast_bought: 'Purchased!', toast_got: 'You got', toast_hint: 'Hint ready', toast_nohint: 'No hint found', toast_no_bay: 'No free bay', toast_err: 'Something went wrong',
+      prop_reorder: 'Reorder Queue', prop_reorder_d: 'Sorts the next passengers to match waiting shuttles.', prop_bay: 'Extra Bay', prop_bay_d: 'Adds +1 bay for this level.', prop_vip: 'VIP Shuttle', prop_vip_d: 'A golden shuttle that takes any 4 passengers.', prop_hint: 'Hint', prop_hint_d: 'Shows the best move.',
+      get_prop: 'Get power-up', get_prop_ad: 'Watch a video for 1', get_prop_coin: 'Buy with coins',
+      c_coral: 'Coral', c_amber: 'Amber', c_lime: 'Lime', c_aqua: 'Aqua', c_azure: 'Azure', c_violet: 'Violet', c_rose: 'Rose',
+      tut1: 'Tap a shuttle: it flies in its arrow direction and docks at a bay.', tut2: 'Passengers of the same colour board automatically. A full shuttle departs.', tut3: 'Blocked shuttles wait for the ones in front to leave.', tut4: 'Don\'t fill the bays! Match the colours that are next in line.',
+      tut_mystery: 'A "?" shuttle reveals its colour once its path is clear.', tut_lock: 'Locked shuttle: opens after that many other shuttles depart.', tut_reorder: 'Reorder sorts passengers to what you need.',
+      boss: 'HARD LEVEL', breather: 'Breather',
+      story_next: 'Next', story_skip: 'Skip', mira: 'Mira', pip: 'Pip', restored: 'is lit up again!', new_district: 'New district',
+      s_intro1: 'Welcome, Night Dispatcher! Nova City\'s power grid has collapsed. The city is dark and everyone just wants to get home.',
+      s_intro2: 'I\'m Pip! Put passengers on the sky shuttle of their colour. Every shuttle that departs brings the lights back on.',
+      s_oldtown: 'The Harbor is glowing again! Next is Old Town: narrow streets, blocked lanes… mind the order of your shuttles.',
+      s_neon: 'Welcome to the Neon Quarter. Some shuttles hide their colour — they reveal it once the way is clear!',
+      s_gardens: 'Crystal Gardens… some shuttles are locked. They open after others depart, so be patient.',
+      s_orbit: 'Orbit Station! Passengers will arrive pretty mixed up now. Use your power-ups wisely.',
+      s_aurora: 'Aurora Core: the heart of the city. From here it never ends — until every passenger is home!',
+      s_win_d: 'Great work! {d} is fully lit again.',
+      tip1: 'Shuttles with a free path glow softly.', tip2: 'Keep your bays empty!', tip3: 'Watch a video to earn a free power-up.', tip4: 'Don\'t forget the daily wheel spin!', tip5: 'Colour-blind mode is in Settings.',
+      offer_starter: 'Starter', offer_pro: 'Pro', offer_plus: 'Nova+', not_logged: 'Login failed',
+    },
+  };
+  let lang = 'tr';
+  function t(k, vars) {
+    let s = (D[lang] && D[lang][k]) || D.en[k] || k;
+    if (vars) for (const [a, b] of Object.entries(vars)) s = s.replace('{' + a + '}', b);
+    return s;
+  }
+  function setLang(l) { lang = D[l] ? l : 'en'; document.documentElement.lang = lang; apply(); }
+  function apply(root) { (root || document).querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); }); }
+  function detect() { const n = (navigator.language || 'en').slice(0, 2).toLowerCase(); return n === 'tr' ? 'tr' : 'en'; }
+  window.I18N = { t, setLang, apply, detect, get lang() { return lang; } };
+  window.T = t;
+})();

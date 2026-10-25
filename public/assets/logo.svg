@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300"><defs><linearGradient id="bgI" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#17c3ff"/></linearGradient>
+<linearGradient id="shine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="pod" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb347"/><stop offset="1" stop-color="#ff5e62"/></linearGradient><filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter>
+<filter id="blur8" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
+<filter id="blur30" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="30"/></filter>
+<linearGradient id="tx" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#b9c6ff"/></linearGradient>
+<linearGradient id="tx2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#17c3ff"/><stop offset="1" stop-color="#ff5ea8"/></linearGradient></defs>
+<g font-family="'Baloo 2','Nunito','Trebuchet MS',system-ui,sans-serif" font-weight="800" text-anchor="middle">
+<text x="380" y="148" font-size="150" letter-spacing="2" fill="#2a1a6e" stroke="#2a1a6e" stroke-width="18" stroke-linejoin="round">NOVA</text>
+<text x="380" y="148" font-size="150" letter-spacing="2" fill="url(#tx)">NOVA</text>
+<text x="380" y="262" font-size="86" letter-spacing="14" fill="#2a1a6e" stroke="#2a1a6e" stroke-width="14" stroke-linejoin="round">TRANSIT</text>
+<text x="380" y="262" font-size="86" letter-spacing="14" fill="url(#tx2)">TRANSIT</text></g>
+<g transform="translate(655 70) scale(0.62)">
+  <rect x="-70" y="-40" width="140" height="80" rx="34" fill="url(#pod)"/>
+  <rect x="-70" y="-40" width="140" height="80" rx="34" fill="url(#shine)"/>
+  <rect x="-48" y="-24" width="96" height="32" rx="14" fill="#2a1647"/>
+  <rect x="-40" y="-18" width="22" height="20" rx="7" fill="#a8f0ff"/><rect x="-12" y="-18" width="22" height="20" rx="7" fill="#a8f0ff"/><rect x="16" y="-18" width="22" height="20" rx="7" fill="#a8f0ff"/>
+  <circle cx="-44" cy="30" r="12" fill="#2a1647"/><circle cx="44" cy="30" r="12" fill="#2a1647"/>
+  <rect x="58" y="-4" width="14" height="12" rx="5" fill="#fff6b0"/></g></svg>

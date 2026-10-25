@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0a0f2c">
+<title>Nova Transit</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <!-- BOOT -->
+  <section id="screen-boot" class="screen active">
+    <img class="boot-logo" src="assets/logo.svg" alt="Nova Transit">
+    <div class="boot-bar"><i id="boot-fill"></i></div>
+    <p id="boot-msg" class="boot-msg"></p>
+  </section>
+
+  <!-- HOME -->
+  <section id="screen-home" class="screen">
+    <div class="bg" id="home-bg"></div>
+    <div class="bg-shade"></div>
+    <header class="topbar">
+      <button class="chip profile" id="btn-profile"><img src="assets/char_mira.svg" alt=""><span id="hud-name">Pilot</span><em id="hud-stars"><svg class="ic"><use href="assets/icons.svg#i-star"/></svg>0</em></button>
+      <div class="spacer"></div>
+      <button class="chip coins" id="btn-coins"><svg class="ic"><use href="assets/icons.svg#i-coin"/></svg><b id="hud-coins">0</b><span class="plus">+</span></button>
+      <button class="chip round" id="btn-settings" aria-label="Settings"><svg class="ic"><use href="assets/icons.svg#i-gear"/></svg></button>
+    </header>
+    <div class="live-chip" id="live-chip"><i class="dot"></i><span id="live-text">…</span></div>
+
+    <div class="home-center">
+      <img class="home-logo" src="assets/logo.svg" alt="Nova Transit">
+      <div class="district-card" id="district-card">
+        <div class="dc-top"><span class="dc-name" id="dc-name"></span><span class="dc-pct" id="dc-pct"></span></div>
+        <div class="dc-bar"><i id="dc-fill"></i></div>
+        <div class="dc-sub" id="dc-sub"></div>
+      </div>
+    </div>
+
+    <div class="side left">
+      <button class="side-btn" id="btn-daily"><svg class="ic"><use href="assets/icons.svg#i-gift"/></svg><span data-i18n="daily">Günlük</span><b class="badge" id="badge-daily">!</b></button>
+      <button class="side-btn" id="btn-supply"><svg class="ic"><use href="assets/icons.svg#i-play"/></svg><span data-i18n="supply">Hediye</span><b class="badge timer" id="badge-supply"></b></button>
+    </div>
+    <div class="side right">
+      <button class="side-btn offer" id="btn-offer"><svg class="ic"><use href="assets/icons.svg#i-vip"/></svg><span id="offer-label">Starter</span></button>
+      <button class="side-btn" id="btn-noads"><svg class="ic"><use href="assets/icons.svg#i-noads"/></svg><span data-i18n="noads">Reklamsız</span></button>
+    </div>
+
+    <div class="pip-wrap"><img src="assets/char_pip.svg" class="pip" alt=""><div class="bubble" id="pip-bubble"></div></div>
+
+    <div class="play-wrap"><button class="btn play" id="btn-play"><small data-i18n="play">OYNA</small><b id="play-level">Seviye 1</b></button></div>
+
+    <nav class="nav" id="nav">
+      <button data-nav="shop"><svg class="ic"><use href="assets/icons.svg#i-cart"/></svg><span data-i18n="shop">Mağaza</span></button>
+      <button data-nav="missions"><svg class="ic"><use href="assets/icons.svg#i-check"/></svg><span data-i18n="missions">Görevler</span><b class="badge" id="badge-missions" hidden>!</b></button>
+      <button data-nav="home" class="on"><svg class="ic"><use href="assets/icons.svg#i-home"/></svg><span data-i18n="home">Ana</span></button>
+      <button data-nav="spin"><svg class="ic"><use href="assets/icons.svg#i-wheel"/></svg><span data-i18n="spin">Çark</span><b class="badge" id="badge-spin" hidden>!</b></button>
+      <button data-nav="rank"><svg class="ic"><use href="assets/icons.svg#i-trophy"/></svg><span data-i18n="rank">Sıralama</span></button>
+    </nav>
+  </section>
+
+  <!-- GAME -->
+  <section id="screen-game" class="screen">
+    <div class="bg" id="game-bg"></div>
+    <div class="bg-shade strong"></div>
+    <header class="hud">
+      <button class="chip round" id="btn-pause" aria-label="Pause"><svg class="ic"><use href="assets/icons.svg#i-pause"/></svg></button>
+      <div class="hud-title"><small id="hud-district"></small><b id="hud-level"></b></div>
+      <div class="chip coins small" id="btn-coins2"><svg class="ic"><use href="assets/icons.svg#i-coin"/></svg><b id="hud-coins2">0</b></div>
+    </header>
+    <div class="progress"><i id="hud-progress"></i></div>
+    <div class="stage" id="stage"><canvas id="cv"></canvas><div id="coach" class="coach" hidden></div></div>
+    <footer class="props" id="props">
+      <button class="prop" data-prop="reorder"><svg class="ic"><use href="assets/icons.svg#i-shuffle"/></svg><span class="pl" data-i18n="p_reorder">Sırala</span><b class="cnt">0</b></button>
+      <button class="prop" data-prop="bay"><svg class="ic"><use href="assets/icons.svg#i-bay"/></svg><span class="pl" data-i18n="p_bay">Park</span><b class="cnt">0</b></button>
+      <button class="prop" data-prop="vip"><svg class="ic"><use href="assets/icons.svg#i-vip"/></svg><span class="pl" data-i18n="p_vip">VIP</span><b class="cnt">0</b></button>
+      <button class="prop" data-prop="hint"><svg class="ic"><use href="assets/icons.svg#i-hint"/></svg><span class="pl" data-i18n="p_hint">İpucu</span><b class="cnt ad">▶</b></button>
+    </footer>
+  </section>
+
+  <div id="modal-root"></div>
+  <div id="toasts"></div>
+  <canvas id="fx"></canvas>
+</div>
+<script src="js/config.js"></script>
+<script src="shared/engine.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/api.js"></script>
+<script src="js/board.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+name: Android APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      server_url:
+        description: "Oyun sunucusu adresi (https://...)"
+        required: false
+
+env:
+  # Repo Settings > Secrets and variables > Actions > Variables > SERVER_URL ile de ayarlanabilir
+  SERVER_URL: ${{ github.event.inputs.server_url || vars.SERVER_URL }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Testler
+        run: |
+          npm ci
+          npm test
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Web dosyalarini hazirla (www)
+        run: |
+          rm -rf www && mkdir -p www/shared
+          cp -r public/. www/
+          cp shared/engine.js www/shared/
+          rm -rf www/admin
+          if [ -n "$SERVER_URL" ]; then
+            echo "window.NT_SERVER = '$SERVER_URL';" > www/js/config.js
+          fi
+          echo "--- config.js ---"; cat www/js/config.js
+
+      - name: Capacitor + Android projesi
+        run: |
+          npm i --no-save @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6
+          cat > capacitor.config.json <<'JSON'
+          {
+            "appId": "com.novatransit.game",
+            "appName": "Nova Transit",
+            "webDir": "www",
+            "android": { "allowMixedContent": false }
+          }
+          JSON
+          npx cap add android
+          npx cap sync android
+
+      - name: Android lisanslarini kabul et
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.9
+
+      - name: APK derle
+        working-directory: android
+        run: |
+          set +e
+          gradle assembleDebug --no-daemon --console=plain > ../build.log 2>&1
+          status=$?
+          echo "=========== HATA OZETI ==========="
+          grep -nE "^e: |What went wrong" -A3 ../build.log | head -70
+          echo "=========== BITTI (cikis kodu: $status) ==========="
+          exit $status
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NovaTransit-APK
+          path: android/app/build/outputs/apk/debug/*.apk
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: build-log
+          path: build.log

@@ -1,0 +1,15 @@
+{
+  "name": "nova-transit",
+  "version": "1.0.0",
+  "description": "Nova Transit – modern puzzle game with live server (online/active players, economy, rewarded ads, shop)",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "assets": "node tools/gen-assets.js",
+    "bots": "node tools/bots.js",
+    "test": "node tests/run.js"
+  },
+  "engines": { "node": ">=22.5" },
+  "dependencies": { "express": "^4.21.2", "ws": "^8.18.0" }
+}

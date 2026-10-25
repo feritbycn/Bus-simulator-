@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nova Transit · Live Ops</title>
+<link rel="icon" href="../assets/icon.svg">
+<style>
+:root{--bg:#0b0f2a;--card:#131a45;--card2:#1a2260;--line:rgba(255,255,255,.1);--tx:#eef0ff;--mut:#9aa3d6;--acc:#7c5cff;--acc2:#17c3ff;--grn:#2fd98a;--red:#ff5a64;--gold:#ffcf4a;--pink:#ff5ea8}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(120% 60% at 50% -10%,#1b2380,var(--bg) 60%);color:var(--tx);font:14px/1.4 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+header{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(11,15,42,.85);backdrop-filter:blur(10px);z-index:5}
+header img{width:34px;height:34px;border-radius:9px}header h1{font-size:17px;margin:0;font-weight:800}header .sp{flex:1}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:var(--card2);font-size:12px;color:var(--mut);font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--grn);box-shadow:0 0 0 0 rgba(47,217,138,.7);animation:p 1.8s infinite}.dot.off{background:var(--red);animation:none}
+@keyframes p{70%{box-shadow:0 0 0 8px rgba(47,217,138,0)}100%{box-shadow:0 0 0 0 rgba(47,217,138,0)}}
+main{padding:18px 20px 60px;max-width:1280px;margin:0 auto;display:grid;gap:16px}
+.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(380px,1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:linear-gradient(180deg,var(--card),var(--card2) 220%);border:1px solid var(--line);border-radius:16px;padding:16px 18px;min-width:0}
+.card h3{margin:0 0 10px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.kpi .v{font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.1}.kpi .s{color:var(--mut);font-size:12px;margin-top:4px}
+.kpi.live .v{color:var(--grn)}.kpi.play .v{color:var(--acc2)}
+.up{color:var(--grn)}.down{color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden;min-width:60px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc2),var(--acc))}
+svg.chart{width:100%;height:170px;display:block}svg text{fill:var(--mut);font-size:10px}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--mut);margin-top:6px}.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+#login{position:fixed;inset:0;display:grid;place-items:center;background:rgba(5,7,25,.92);z-index:20}#login form{background:var(--card);padding:26px;border-radius:18px;border:1px solid var(--line);width:min(92vw,340px);display:grid;gap:12px}
+input,button{font:inherit}input{padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:#0a0e30;color:#fff}button.p{padding:11px;border-radius:10px;border:0;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-weight:700;cursor:pointer}
+.tag{display:inline-block;padding:1px 8px;border-radius:99px;font-size:11px;font-weight:700;background:rgba(255,255,255,.1)}.tag.playing{background:rgba(23,195,255,.2);color:var(--acc2)}.tag.menu{background:rgba(47,217,138,.18);color:var(--grn)}.tag.ad{background:rgba(255,207,74,.2);color:var(--gold)}
+.note{font-size:11px;color:var(--mut);margin-top:8px}
+@media(max-width:560px){.g2{grid-template-columns:1fr}}
+</style></head>
+<body>
+<div id="login"><form id="lf"><b style="font-size:18px">Nova Transit · Live Ops</b><input id="key" type="password" placeholder="Admin key" autocomplete="current-password"><button class="p">Sign in</button><small id="lerr" style="color:var(--red)"></small></form></div>
+<header><img src="../assets/icon.svg" alt=""><h1>Nova Transit · Live Ops</h1><span class="pill"><i class="dot" id="wsdot"></i><span id="wsstate">connecting…</span></span><span class="sp"></span><span class="pill" id="updated">—</span><span class="pill" id="today">—</span></header>
+<main>
+  <section class="grid g4">
+    <div class="card kpi live"><h3>Online now</h3><div class="v" id="k-online">—</div><div class="s">connected players · peak 24h <b id="k-peak">—</b></div></div>
+    <div class="card kpi play"><h3>Playing a level</h3><div class="v" id="k-playing">—</div><div class="s" id="k-states">—</div></div>
+    <div class="card kpi"><h3>DAU (today)</h3><div class="v" id="k-dau">—</div><div class="s" id="k-dau-s">—</div></div>
+    <div class="card kpi"><h3>WAU / MAU</h3><div class="v" id="k-wau">—</div><div class="s" id="k-mau">—</div></div>
+    <div class="card kpi"><h3>New players today</h3><div class="v" id="k-new">—</div><div class="s" id="k-total">—</div></div>
+    <div class="card kpi"><h3>Sessions today</h3><div class="v" id="k-sess">—</div><div class="s" id="k-sess-s">—</div></div>
+    <div class="card kpi"><h3>Levels played today</h3><div class="v" id="k-runs">—</div><div class="s" id="k-runs-s">—</div></div>
+    <div class="card kpi"><h3>Revenue today</h3><div class="v" id="k-rev">—</div><div class="s" id="k-rev-s">—</div></div>
+  </section>
+
+  <section class="grid g2">
+    <div class="card"><h3>Concurrent players · live (last 20 min)</h3><svg class="chart" id="c-live" viewBox="0 0 600 170" preserveAspectRatio="none"></svg><div class="legend"><span><i style="background:var(--grn)"></i>online</span><span><i style="background:var(--acc2)"></i>playing</span></div></div>
+    <div class="card"><h3>Concurrent players · last 24 h (hourly max)</h3><svg class="chart" id="c-hourly" viewBox="0 0 600 170" preserveAspectRatio="none"></svg><div class="legend"><span><i style="background:var(--acc)"></i>peak online</span><span><i style="background:var(--pink)"></i>peak playing</span></div></div>
+  </section>
+
+  <section class="grid g2">
+    <div class="card"><h3>14 days · DAU &amp; new players</h3><svg class="chart" id="c-dau" viewBox="0 0 600 170" preserveAspectRatio="none"></svg><div class="legend"><span><i style="background:var(--acc2)"></i>DAU</span><span><i style="background:var(--gold)"></i>new</span></div></div>
+    <div class="card"><h3>14 days · IAP revenue</h3><svg class="chart" id="c-rev" viewBox="0 0 600 170" preserveAspectRatio="none"></svg><div class="legend"><span><i style="background:var(--grn)"></i>IAP revenue</span></div></div>
+  </section>
+
+  <section class="grid g3">
+    <div class="card"><h3>Monetisation · today</h3><table id="t-money"></table><div class="note">Ad revenue is an <b>estimate</b> (impressions × eCPM). Replace with your ad network's real report.</div></div>
+    <div class="card"><h3>Rewarded video by placement</h3><table id="t-ads"></table></div>
+    <div class="card"><h3>Retention (cohorts)</h3><table id="t-ret"></table></div>
+  </section>
+
+  <section class="grid g3">
+    <div class="card"><h3>Where players are (level)</h3><table id="t-lv"></table></div>
+    <div class="card"><h3>Hardest levels (fail rate)</h3><table id="t-hard"></table></div>
+    <div class="card"><h3>Purchases by product</h3><table id="t-prod"></table><h3 style="margin-top:16px">Platform / language / country</h3><table id="t-mix"></table></div>
+  </section>
+
+  <section class="card"><h3>Live players <span id="ll-n"></span></h3><table id="t-live"></table></section>
+</main>
+<script src="admin.js"></script>
+</body></html>

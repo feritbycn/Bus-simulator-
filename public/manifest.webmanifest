@@ -1,0 +1,3 @@
+{ "name": "Nova Transit", "short_name": "Nova Transit", "start_url": "/", "display": "standalone", "orientation": "portrait",
+  "background_color": "#0a0f2c", "theme_color": "#0a0f2c",
+  "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }] }
